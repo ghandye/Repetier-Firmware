@@ -700,8 +700,14 @@ UI_MENU(ui_menu_offsets, UI_MENU_OFFSETS, UI_MENU_BACKCNT + 3)
 UI_MENU_SUBMENU_T(ui_menu_go_offsets, UI_TEXT_OFFSETS_ID, ui_menu_offsets)
 
 #if DRIVE_SYSTEM != DELTA     //Positioning menu for non-delta
-#define UI_MENU_POSITIONS {UI_MENU_ADDCONDBACK &ui_menu_home_all,&ui_menu_home_x,&ui_menu_home_y,&ui_menu_home_z UI_SPEED_X UI_SPEED_Y UI_SPEED_Z ,&ui_menu_go_epos SERVOPOS_ENTRY,&ui_menu_go_offsets}
-UI_MENU(ui_menu_positions, UI_MENU_POSITIONS, 6 + 3 * UI_SPEED + UI_MENU_BACKCNT + SERVOPOS_COUNT)
+//
+// Make some custom edits for the Main --> Move menu
+//#define UI_MENU_POSITIONS {UI_MENU_ADDCONDBACK &ui_menu_home_all,&ui_menu_home_x,&ui_menu_home_y,&ui_menu_home_z UI_SPEED_X UI_SPEED_Y UI_SPEED_Z ,&ui_menu_go_epos SERVOPOS_ENTRY,&ui_menu_go_offsets}
+//UI_MENU(ui_menu_positions, UI_MENU_POSITIONS, 6 + 3 * UI_SPEED + UI_MENU_BACKCNT + SERVOPOS_COUNT)
+//
+#define UI_MENU_POSITIONS {UI_MENU_ADDCONDBACK &ui_menu_home_all,&ui_menu_go_xfast,&ui_menu_go_yfast,&ui_menu_go_zfast,&ui_menu_go_epos,&ui_menu_home_x,&ui_menu_home_y,&ui_menu_home_z,&ui_menu_go_xpos,&ui_menu_go_ypos,&ui_menu_go_zpos SERVOPOS_ENTRY,&ui_menu_go_offsets}
+UI_MENU(ui_menu_positions, UI_MENU_POSITIONS, 6 + 3 + UI_MENU_BACKCNT + SERVOPOS_COUNT)
+//
 #else                   //Positioning menu for delta (removes individual x,y,z homing)
 #define UI_MENU_POSITIONS {UI_MENU_ADDCONDBACK &ui_menu_home_all  UI_SPEED_X UI_SPEED_Y UI_SPEED_Z ,&ui_menu_go_epos SERVOPOS_ENTRY,&ui_menu_go_offsets}
 UI_MENU(ui_menu_positions, UI_MENU_POSITIONS, 3 + 3 * UI_SPEED + UI_MENU_BACKCNT + SERVOPOS_COUNT)
@@ -1039,9 +1045,16 @@ UI_MENU_SUBMENU_FILTER_T(ui_menu_quick_changefil_printing,UI_TEXT_CHANGE_FILAMEN
 #define UI_CHANGE_FIL_ENT_PRINTING
 #endif
 
-#define UI_MENU_QUICK {UI_MENU_ADDCONDBACK &ui_menu_home_all BABY_ENTRY ,&ui_menu_quick_speedmultiply UI_MENU_FLOWCONF_COND \
+//
+// Make some custom edits for the Main --> Quick menu
+//#define UI_MENU_QUICK {UI_MENU_ADDCONDBACK &ui_menu_home_all BABY_ENTRY ,&ui_menu_quick_speedmultiply UI_MENU_FLOWCONF_COND \
     UI_TOOGLE_LIGHT_ENTRY UI_FANSPEED UI_FAN2SPEED UI_CHANGE_FIL_ENT UI_MENU_PREHEAT_COND ,&ui_menu_quick_origin, \
     &ui_menu_quick_stopstepper MENU_PSON_ENTRY DEBUG_PRINT_EXTRA}
+//UI_MENU(ui_menu_quick, UI_MENU_QUICK, 4 + BABY_CNT + UI_MENU_BACKCNT + MENU_PSON_COUNT + DEBUG_PRINT_COUNT + UI_MENU_FLOWCONF_CNT + UI_TOGGLE_LIGHT_COUNT + UI_CHANGE_FIL_CNT + UI_MENU_PREHEAT_CNT + UI_MENU_FAN_CNT + UI_MENU_FAN2_CNT)
+//
+#define UI_MENU_QUICK {UI_MENU_ADDCONDBACK &ui_menu_home_all,&ui_menu_quick_stopstepper UI_FANSPEED BABY_ENTRY \
+    UI_MENU_PREHEAT_COND UI_TOOGLE_LIGHT_ENTRY UI_FAN2SPEED ,&ui_menu_quick_origin \
+    ,&ui_menu_quick_speedmultiply UI_MENU_FLOWCONF_COND UI_CHANGE_FIL_ENT MENU_PSON_ENTRY DEBUG_PRINT_EXTRA}
 UI_MENU(ui_menu_quick, UI_MENU_QUICK, 4 + BABY_CNT + UI_MENU_BACKCNT + MENU_PSON_COUNT + DEBUG_PRINT_COUNT + UI_MENU_FLOWCONF_CNT + UI_TOGGLE_LIGHT_COUNT + UI_CHANGE_FIL_CNT + UI_MENU_PREHEAT_CNT + UI_MENU_FAN_CNT + UI_MENU_FAN2_CNT)
 
 // **** Bed Coating Menu
