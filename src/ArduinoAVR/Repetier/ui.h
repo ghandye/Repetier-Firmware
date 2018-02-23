@@ -546,12 +546,12 @@ const UIMenu name PROGMEM = {5,action,5,name ## _entries};
 #if MOTHERBOARD == 37
 #define SDCARDDETECT ORIG_SDCARDDETECT
 #else
-#define SDCARDDETECT 49
+#define SDCARDDETECT -1
 #endif
 #undef SDCARDDETECTINVERTED
 #define SDCARDDETECTINVERTED 0
 #undef SDSUPPORT
-#define SDSUPPORT 1
+#define SDSUPPORT 0
 #endif
 
 #if FEATURE_CONTROLLER == CONTROLLER_VIKI2
